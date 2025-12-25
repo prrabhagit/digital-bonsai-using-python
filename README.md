@@ -37,3 +37,27 @@ canopy_points = []
 tree_pen.speed(0)
 
 canopy_points = []
+def draw_branch(x, y, angle, length, thickness):
+    
+    if length < MIN_BRANCH_LENGTH:
+        
+        canopy_points.append((x, y))
+        return
+    
+    
+    end_x = x + length * math.cos(math.radians(angle))
+    end_y = y + length * math.sin(math.radians(angle))
+    
+    
+    tree_pen.pensize(thickness)
+    tree_pen.pencolor(TRUNK_COLOR)
+    tree_pen.up()
+    tree_pen.goto(x, y)
+    tree_pen.down()
+    tree_pen.goto(end_x, end_y)
+    
+    
+    new_length = length * BRANCH_REDUCTION
+    new_thickness = max(1, thickness - 0.5)
+    
+    
