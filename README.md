@@ -59,5 +59,19 @@ def draw_branch(x, y, angle, length, thickness):
     
     new_length = length * BRANCH_REDUCTION
     new_thickness = max(1, thickness - 0.5)
+        angle_variation = random.uniform(-10, 10)
+    draw_branch(end_x, end_y, angle + BRANCH_ANGLE + angle_variation, 
+                new_length, new_thickness)
     
+    
+    angle_variation = random.uniform(-10, 10)
+    draw_branch(end_x, end_y, angle - BRANCH_ANGLE + angle_variation, 
+                new_length, new_thickness)
+    
+    
+    if random.random() < 0.3 and length > 30:
+        angle_variation = random.uniform(-15, 15)
+        draw_branch(end_x, end_y, angle + angle_variation, 
+                    new_length * 0.8, new_thickness)
+
     
