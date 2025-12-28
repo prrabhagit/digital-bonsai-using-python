@@ -73,5 +73,22 @@ def draw_branch(x, y, angle, length, thickness):
         angle_variation = random.uniform(-15, 15)
         draw_branch(end_x, end_y, angle + angle_variation, 
                     new_length * 0.8, new_thickness)
-
+    
+def draw_tree():
+    
+    trunk_base_y = -SCREEN_HEIGHT // 2 + 100
+    trunk_height = 100
+    
+    
+    tree_pen.pensize(15)
+    tree_pen.pencolor(TRUNK_COLOR)
+    tree_pen.up()
+    tree_pen.goto(0, trunk_base_y)
+    tree_pen.down()
+    tree_pen.goto(0, trunk_base_y + trunk_height)
+    
+    
+    for spread in [-20, 0, 20]:
+        draw_branch(0, trunk_base_y + trunk_height, 90 + spread, 
+                    BRANCH_LENGTH, 10)
     
