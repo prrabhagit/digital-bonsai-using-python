@@ -91,7 +91,8 @@ def draw_tree():
     for spread in [-20, 0, 20]:
         draw_branch(0, trunk_base_y + trunk_height, 90 + spread, 
                     BRANCH_LENGTH, 10)
-                    def draw_ground():
+
+def draw_ground():
     
     ground_pen = turtle.Turtle()
     ground_pen.hideturtle()
@@ -104,4 +105,11 @@ def draw_tree():
     ground_pen.pencolor('#2d5016')
     ground_pen.fillcolor('#4a7c2c')
     ground_pen.begin_fill()
+    ground_pen.goto(SCREEN_WIDTH // 2, -SCREEN_HEIGHT // 2 + 100)
+    ground_pen.goto(SCREEN_WIDTH // 2, -SCREEN_HEIGHT // 2)
+    ground_pen.goto(-SCREEN_WIDTH // 2, -SCREEN_HEIGHT // 2)
+    ground_pen.goto(-SCREEN_WIDTH // 2, -SCREEN_HEIGHT // 2 + 100)
+    ground_pen.end_fill()
+
+    
     
