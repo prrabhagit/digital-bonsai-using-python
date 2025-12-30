@@ -110,6 +110,22 @@ def draw_ground():
     ground_pen.goto(-SCREEN_WIDTH // 2, -SCREEN_HEIGHT // 2)
     ground_pen.goto(-SCREEN_WIDTH // 2, -SCREEN_HEIGHT // 2 + 100)
     ground_pen.end_fill()
+    
+class Leaf:
+    
+    
+    def __init__(self, is_static=True, color=None):
+        
+        self.is_static = is_static
+        
+        if canopy_points:
+            cx, cy = random.choice(canopy_points)
+            self.x = cx + random.uniform(-35, 35)
+            self.y = cy + random.uniform(-25, 25)
+        else:
+            self.x = random.uniform(-200, 200)
+            self.y = 200
+
 
     
     
