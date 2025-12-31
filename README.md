@@ -125,6 +125,13 @@ class Leaf:
         else:
             self.x = random.uniform(-200, 200)
             self.y = 200
+                    self.vx = random.uniform(-0.5, 0.5)
+        self.vy = 0
+        self.rotation = random.uniform(0, 360)
+        self.rotation_speed = random.uniform(-5, 5) if not is_static else 0
+        self.size = random.uniform(8, 14)
+        
+        
 
 
     
