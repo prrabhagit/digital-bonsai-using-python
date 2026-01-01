@@ -130,7 +130,23 @@ class Leaf:
         self.rotation = random.uniform(0, 360)
         self.rotation_speed = random.uniform(-5, 5) if not is_static else 0
         self.size = random.uniform(8, 14)
+                if color:
+            self.color = color
+        elif is_static:
+            
+            green_colors = [
+                (34, 139, 34),    
+                (50, 205, 50),    
+                (46, 125, 50),    
+                (76, 175, 80),    
+            ]
+            self.color = rgb_to_hex(*random.choice(green_colors))
+        else:
+            
+            self.color = rgb_to_hex(205, 133, 63)
         
+        self.on_ground = False
+    
         
 
 
