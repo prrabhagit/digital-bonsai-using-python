@@ -146,6 +146,19 @@ class Leaf:
             self.color = rgb_to_hex(205, 133, 63)
         
         self.on_ground = False
+        
+    def update(self, wind_force):
+        if self.is_static or self.on_ground:
+            return
+
+        self.vx += wind_force * 0.02
+        self.vx += random.uniform(-0.02, 0.02)
+
+        self.vy -= GRAVITY
+
+        self.vx *= 0.99
+        self.vy *= 0.99
+
     
         
 
