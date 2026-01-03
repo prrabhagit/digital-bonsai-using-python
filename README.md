@@ -158,6 +158,12 @@ class Leaf:
 
         self.vx *= 0.99
         self.vy *= 0.99
+        
+ self.x += self.vx
+        self.y += self.vy
+        self.rotation += self.rotation_speed
+
+        ground_level = -SCREEN_HEIGHT // 2 + 100
 
     
         
