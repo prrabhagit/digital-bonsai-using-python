@@ -165,7 +165,13 @@ class Leaf:
 
         ground_level = -SCREEN_HEIGHT // 2 + 100
 
-    
+            if self.y <= ground_level:
+            self.y = ground_level + random.uniform(0, 5)
+            self.on_ground = True
+            self.vx = 0
+            self.vy = 0
+            self.rotation_speed = 0
+
         
 
 
