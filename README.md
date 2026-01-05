@@ -172,7 +172,17 @@ class Leaf:
             self.vy = 0
             self.rotation_speed = 0
 
-        
+            def draw(self, pen):
+        pen.up()
+        pen.goto(self.x, self.y)
+        pen.setheading(self.rotation)
+        pen.down()
+
+        pen.fillcolor(self.color)
+        pen.pencolor(self.color)
+        pen.pensize(1)
+        pen.begin_fill()
+
 
 
     
