@@ -183,6 +183,11 @@ class Leaf:
         pen.pensize(1)
         pen.begin_fill()
 
+        for _ in range(2):
+            pen.circle(self.size, 90)
+            pen.circle(self.size / 3, 90)
+
+        pen.end_fill()
 
 
     
