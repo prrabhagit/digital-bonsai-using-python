@@ -189,6 +189,14 @@ class Leaf:
 
         pen.end_fill()
 
+    def is_off_screen(self):
+        return (self.x < -SCREEN_WIDTH // 2 - 50 or
+                self.x > SCREEN_WIDTH // 2 + 50)
+
+draw_ground()
+draw_tree()
+
+leaves = []
 
     
     
