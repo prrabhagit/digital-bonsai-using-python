@@ -2,15 +2,16 @@ import turtle
 import random
 import math
 import time
+import pygame
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 800
 BACKGROUND_COLOR = '#e8f4f8'
 
 TRUNK_COLOR = '#4a2511'
 BRANCH_ANGLE = 25
-BRANCH_LENGTH = 120
-MIN_BRANCH_LENGTH = 10
+BRANCH_LENGTH = 170
+MIN_BRANCH_LENGTH = 8
 BRANCH_REDUCTION = 0.7
 
 GRAVITY = 0.15
@@ -21,7 +22,7 @@ FPS = 60
 
 screen = turtle.Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
-screen.title("900 Green Leaves + 100 Falling Golden Brown Leaves")
+screen.title("Banyan Tree - 900 Green Leaves + 100 Falling Golden Brown Leaves")
 screen.bgcolor(BACKGROUND_COLOR)
 screen.tracer(0)
 
@@ -31,10 +32,34 @@ def rgb_to_hex(r, g, b):
 tree_pen = turtle.Turtle()
 tree_pen.hideturtle()
 tree_pen.speed(0)
+tree_pen.goto(0, trunk_base_y + trunk_height)
 
 canopy_points = []
+def draw_trunk():
+    x = 0
+    y = -SCREEN_HEIGHT // 2 + 120
+    angle = 90
+
+    tree_pen.pensize(12)
+    tree_pen.pencolor(TRUNK_COLOR)
+    tree_pen.up()
+    tree_pen.goto(x, y)
+    tree_pen.down()
+
+    for i in range(8):
+        angle += random.uniform(-8, 8)   # gentle curve
+        length = 15
+        x += length * math.cos(math.radians(angle))
+        y += length * math.sin(math.radians(angle))
+        tree_pen.goto(x, y)
+
+    return x, y, angle
+
 
 def draw_branch(x, y, angle, length, thickness):
+    growth_factor = 0.0
+    length *= (0.6 + growth_factor)
+
     if length < MIN_BRANCH_LENGTH:
         canopy_points.append((x, y))
         return
@@ -52,11 +77,12 @@ def draw_branch(x, y, angle, length, thickness):
     new_length = length * BRANCH_REDUCTION
     new_thickness = max(1, thickness - 0.5)
 
-    angle_variation = random.uniform(-10, 10)
+    angle_variation = random.uniform(-5, 5)
+
     draw_branch(end_x, end_y, angle + BRANCH_ANGLE + angle_variation,
                 new_length, new_thickness)
+    angle_variation = random.uniform(-5, 5)
 
-    angle_variation = random.uniform(-10, 10)
     draw_branch(end_x, end_y, angle - BRANCH_ANGLE + angle_variation,
                 new_length, new_thickness)
 
@@ -64,6 +90,23 @@ def draw_branch(x, y, angle, length, thickness):
         angle_variation = random.uniform(-15, 15)
         draw_branch(end_x, end_y, angle + angle_variation,
                     new_length * 0.8, new_thickness)
+def draw_pot():
+    pot = turtle.Turtle()
+    pot.hideturtle()
+    pot.speed(0)
+
+    base_y = -SCREEN_HEIGHT // 2 + 90
+
+    pot.up()
+    pot.goto(-80, base_y)
+    pot.down()
+    pot.fillcolor('#6d4c41')
+    pot.begin_fill()
+    pot.goto(80, base_y)
+    pot.goto(60, base_y - 40)
+    pot.goto(-60, base_y - 40)
+    pot.goto(-80, base_y)
+    pot.end_fill()
 
 def draw_tree():
     trunk_base_y = -SCREEN_HEIGHT // 2 + 100
@@ -76,7 +119,8 @@ def draw_tree():
     tree_pen.down()
     tree_pen.goto(0, trunk_base_y + trunk_height)
 
-    for spread in [-20, 0, 20]:
+for spread in [-35, -10, 15]:
+
         draw_branch(0, trunk_base_y + trunk_height, 90 + spread,
                     BRANCH_LENGTH, 10)
 
@@ -103,8 +147,9 @@ class Leaf:
 
         if canopy_points:
             cx, cy = random.choice(canopy_points)
-            self.x = cx + random.uniform(-35, 35)
-            self.y = cy + random.uniform(-25, 25)
+            self.x = cx + random.uniform(-20, 20)
+            self.y = cy + random.uniform(-10, 10)
+
         else:
             self.x = random.uniform(-200, 200)
             self.y = 200
@@ -145,49 +190,3 @@ class Leaf:
         self.x += self.vx
         self.y += self.vy
         self.rotation += self.rotation_speed
-
-        ground_level = -SCREEN_HEIGHT // 2 + 100
-        if self.y <= ground_level:
-            self.y = ground_level + random.uniform(0, 5)
-            self.on_ground = True
-            self.vx = 0
-            self.vy = 0
-            self.rotation_speed = 0
-
-    def draw(self, pen):
-        pen.up()
-        pen.goto(self.x, self.y)
-        pen.setheading(self.rotation)
-        pen.down()
-
-        pen.fillcolor(self.color)
-        pen.pencolor(self.color)
-        pen.pensize(1)
-        pen.begin_fill()
-
-        for _ in range(2):
-            pen.circle(self.size, 90)
-            pen.circle(self.size / 3, 90)
-
-        pen.end_fill()
-
-    def is_off_screen(self):
-        return (self.x < -SCREEN_WIDTH // 2 - 50 or
-                self.x > SCREEN_WIDTH // 2 + 50)
-
-draw_ground()
-draw_tree()
-
-leaves = []
-
-for i in range(900):
-    leaf = Leaf(is_static=True)
-    leaves.append(leaf)
-
-for i in range(100):
-    leaf = Leaf(is_static=False, color=rgb_to_hex(205, 133, 63))
-    leaves.append(leaf)
-
-static_leaf_pen = turtle.Turtle()
-static_leaf_pen.hideturtle()
-static_leaf_pen.speed(0)
