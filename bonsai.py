@@ -22,7 +22,7 @@ FPS = 60
 
 screen = turtle.Screen()
 screen.setup(SCREEN_WIDTH, SCREEN_HEIGHT)
-screen.title("Banyan Tree - 900 Green Leaves + 100 Falling Golden Brown Leaves")
+screen.title("Bonsai Tree Using Python")
 screen.bgcolor(BACKGROUND_COLOR)
 screen.tracer(0)
 
