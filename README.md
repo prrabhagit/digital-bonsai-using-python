@@ -74,7 +74,7 @@ The codebase is designed to evolve into an **interactive bonsai simulator**, sup
 ## Installation & Usage
 
 ```bash
-git clone https://github.com/yourusername/digital-bonsai.git
+git clone https://github.com/prrabhagit/digital-bonsai.git
 cd digital-bonsai
 python digital_bonsai.py
 ```
