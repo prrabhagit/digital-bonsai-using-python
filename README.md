@@ -60,16 +60,13 @@ The codebase is designed to evolve into an **interactive bonsai simulator**, sup
 
 ## Technology Stack
 
-* Python 3.13+
+* Python 3.11- (higher versions dont support pygame as of now)
 * turtle (2D rendering & animation)
 * math (trigonometry & oscillation)
 * random (organic variation)
 * time (frame timing)
 
-> **Note:** `pygame` is currently imported but not yet active.
-> It is reserved for future real-time input and performance upgrades.
 
----
 
 ## Installation & Usage
 
