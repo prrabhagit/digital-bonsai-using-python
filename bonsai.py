@@ -239,3 +239,14 @@ class Leaf:
         ui_pen=turtle.Turtle()
         ui_pen.hide_turtle()
         ui_pen.speed(0)
+    def redraw_tree():
+        global canopy_points, leaves 
+        tree_pen.clear()
+        static_leaf_pen.clear()
+        falling_leaf_pen.clear()
+        draw_ground()
+        draw_tree()
+        for leaf in leaves:
+            if leaf.is_static:
+             leaf.draw(static_leaf_pen)
+            screen.update()
