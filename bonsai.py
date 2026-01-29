@@ -236,8 +236,6 @@ class Leaf:
             self.color = rgb_to_hex(205, 133, 63)
 
         self.on_ground = False
-
-
         ui_pen=turtle.Turtle()
         ui_pen.hide_turtle()
         ui_pen.speed(0)
