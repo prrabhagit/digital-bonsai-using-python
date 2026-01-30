@@ -249,3 +249,27 @@ class Leaf:
             if leaf.is_static:
              leaf.draw(static_leaf_pen)
             screen.update()
+
+    def update(self, wind_force):
+        if self.is_static or self.on_ground:
+            return
+
+        self.vx += wind_force * 0.02
+        self.vx += random.uniform(-0.02, 0.02)
+
+        self.vy -= GRAVITY
+
+        self.vx *= 0.99
+        self.vy *= 0.99
+
+        self.x += self.vx
+        self.y += self.vy
+        self.rotation += self.rotation_speed
+
+        ground_level = -SCREEN_HEIGHT // 2 + 100
+        if self.y <= ground_level:
+            self.y = ground_level + random.uniform(0, 5)
+            self.on_ground = True
+            self.vx = 0
+            self.vy = 0
+            self.rotation_speed = 0
