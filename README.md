@@ -1,141 +1,225 @@
+# Digital Bonsai Tree
 
+A procedurally generated interactive bonsai ecosystem built with Python and Arcade.
 
-# Digital Bonsai 🌱
+This project simulates the life of a digital bonsai tree with:
 
-A procedural **Digital Bonsai tree simulation** built using Python Turtle.
-The project focuses on **organic branch generation**, **leaf physics**, and a **lightweight animation loop**, with planned expansion toward interactivity and environmental systems.
+* recursive procedural growth
+* dynamic weather
+* day/night cycles
+* wind animation
+* resource management
+* pruning mechanics
+* environmental simulation
+* animated leaves and rain particles
+
+The tree evolves over time based on its environment and player interaction, creating a calm generative simulation inspired by nature.
 
 ---
 
-## Overview
+## Preview
 
-**Digital Bonsai** simulates the growth and behavior of a miniature tree using recursive algorithms and simplified physics.
-It renders a carefully shaped bonsai structure with a dense canopy of static leaves, alongside dynamically falling leaves affected by wind and gravity.
+*Add screenshots or GIFs here*
 
-The codebase is designed to evolve into an **interactive bonsai simulator**, supporting pruning, weather effects, and seasonal transitions.
+```md
+![Preview](assets/preview.png)
+```
 
 ---
 
 ## Features
 
-### Implemented
+### Procedural Tree Generation
 
-* Procedural bonsai-style trunk and branch generation
-* Recursive branching with controlled curvature
-* Static canopy leaf placement at branch endpoints
-* Dynamic falling leaves with:
+* Recursive branch growth
+* Randomized but controlled branch spreading
+* Dynamic regrowth after pruning
+* Terminal leaf cluster generation
 
-  * Gravity
-  * Wind oscillation
-  * Rotation and damping
-* Ground collision and settling
-* Optimized rendering (static vs dynamic layers)
-* Stable 60 FPS animation loop
+### Environmental Simulation
 
-### Physics Model
+* Sunny, cloudy, rainy, and stormy weather
+* Smooth day/night cycle
+* Dynamic sunlight calculation
+* Wind simulation with branch sway
+* Rain particle system
 
-* Sinusoidal wind force
-* Velocity damping for natural motion
-* Ground collision handling
-* Randomized turbulence for realism
+### Interactive Ecosystem
+
+* Water and nutrient management
+* Tree health simulation
+* Growth affected by environmental conditions
+* Storms can damage branches naturally
+
+### Player Interaction
+
+* Click to prune branches
+* Water the tree
+* Fertilize the soil
+* Pause/unpause simulation
+
+### Visual Effects
+
+* Animated leaves
+* Sky gradients
+* Sun and moon movement
+* Cloud rendering
+* Pruning particle effects
+* Dynamic ambient lighting
 
 ---
 
-## Architecture
+## Controls
 
-### Rendering Strategy
-
-* Static elements (tree, ground, canopy leaves) are drawn once
-* Dynamic elements (falling leaves) are updated every frame
-* Uses non-blocking `ontimer()` animation scheduling
-
-### Core Components
-
-* `draw_trunk()` – Curved trunk formation
-* `draw_branch()` – Recursive bonsai branching
-* `Leaf` class – Leaf physics and rendering
-* `animate()` – Main simulation loop
+| Key / Action | Function         |
+| ------------ | ---------------- |
+| Left Click   | Prune branch     |
+| `W`          | Water tree       |
+| `F`          | Fertilize tree   |
+| `P`          | Pause simulation |
+| `ESC`        | Quit             |
 
 ---
 
-## Technology Stack
+## Tech Stack
 
-* Python 3.11- (higher versions dont support pygame as of now)
-* turtle (2D rendering & animation)
-* math (trigonometry & oscillation)
-* random (organic variation)
-* time (frame timing)
+* Python
+* Arcade
+* Procedural Generation
+* Recursive Data Structures
+* Real-Time Simulation
 
+---
 
+## Installation
 
-## Installation & Usage
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/prrabhagit/digital-bonsai.git
-cd digital-bonsai
-python digital_bonsai.py
+git clone https://github.com/prrabhagit/digital-bonsai-tree.git
+cd digital-bonsai-tree
 ```
 
-No external dependencies required.
+### 2. Install dependencies
+
+```bash
+pip install arcade
+```
+
+### 3. Run the project
+
+```bash
+python bonsai.py
+```
 
 ---
 
-## Planned Enhancements
+## Project Structure
 
-###  Interaction
-
-* Keyboard-based pruning (branch trimming)
-* Manual leaf shedding
-* Tree reset and regeneration
-
-###  Environment
-
-* Dynamic wind intensity
-* Storm and calm modes
-* Rain-influenced gravity
-* Seasonal leaf color transitions
-
-###  Growth System
-
-* Time-based growth stages
-* Branch regeneration after pruning
-* Aging and shaping mechanics
-
-###  Engine Upgrade
-
-* Migration to Pygame
-* Improved input handling
-* Higher frame rates
-* Particle-based effects
+```bash
+digital-bonsai-tree/
+│
+├── bonsai.py
+├── assets/
+│   └── preview.png
+├── README.md
+└── requirements.txt
+```
 
 ---
 
-## Design Philosophy
+## How It Works
 
-Digital Bonsai emphasizes:
+### Tree Growth
 
-* Controlled minimalism
-* Organic imperfection
-* Algorithmic growth over realism
-* Expandability over complexity
+Each branch grows incrementally over time. Once mature, it procedurally spawns child branches using randomized angle and length distributions.
+
+### Environment System
+
+The environment continuously updates:
+
+* weather
+* sunlight
+* wind
+* nutrients
+* water
+* overall health
+
+These directly affect growth speed and visual appearance.
+
+### Procedural Leaves
+
+Leaves are generated once and stored permanently to prevent flickering and maintain visual consistency.
+
+### Weather Events
+
+Storms can randomly prune branches, allowing the tree to naturally evolve and regrow into new shapes.
 
 ---
 
-## Project Status
+## Future Improvements
 
-**Active development**
-Core simulation complete, interactive systems planned.
+* Branch curvature using Bézier curves
+* Seasonal simulation
+* Snow and autumn leaves
+* Save/load system
+* Genetics and evolution system
+* Ambient audio
+* Shader-based lighting and bloom
+* GPU particle systems
+* Perlin noise wind simulation
 
 ---
 
+## Screenshots
+
+*Add more screenshots here*
+
+```md
+![Day](assets/day.png)
+![Night](assets/night.png)
+![Storm](assets/storm.png)
+```
+
+---
+
+## Inspiration
+
+Inspired by:
+
+* bonsai aesthetics
+* procedural generation in games
+* ecosystem simulations
+* generative art
+* calm interactive experiences
+
+---
+
+## Learning Goals
+
+This project explores:
+
+* procedural generation
+* recursion
+* real-time simulation
+* animation systems
+* game architecture
+* environmental systems
+* interactive graphics programming
+
+---
+
+## License
+
+MIT License
+
+---
 
 ## Author
 
-**Prabha**
-Engineering Student
-Creative Coding | Simulations | Systems Design
+Prabha Sapkota
 
----
+• Backend & AI Enthusiast • Creative Developer
 
 
   
