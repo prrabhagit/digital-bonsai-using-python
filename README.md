@@ -17,15 +17,6 @@ The tree evolves over time based on its environment and player interaction, crea
 
 ---
 
-## Preview
-
-*Add screenshots or GIFs here*
-
-```md
-![Preview](assets/preview.png)
-```
-
----
 
 ## Features
 
