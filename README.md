@@ -162,17 +162,6 @@ Storms can randomly prune branches, allowing the tree to naturally evolve and re
 
 ---
 
-## Screenshots
-
-*Add more screenshots here*
-
-```md
-![Day](assets/day.png)
-![Night](assets/night.png)
-![Storm](assets/storm.png)
-```
-
----
 
 ## Inspiration
 
@@ -200,11 +189,6 @@ This project explores:
 
 ---
 
-## License
-
-MIT License
-
----
 
 ## Author
 
