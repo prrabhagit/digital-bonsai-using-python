@@ -1,5 +1,4 @@
 
-
 import arcade
 import math
 import random
@@ -7,19 +6,18 @@ from typing import List, Optional, Tuple
 
 #  CONSTANTS
 
-
 SCREEN_W = 1280
 SCREEN_H = 820
-TITLE    = "Digital Bonsai — Enhanced Simulation"
+TITLE    = "Digital Bonsai"
 
-# Tree parameters 
+# Tree parameters
 TRUNK_LENGTH    = 105
 TRUNK_THICKNESS = 13
 MAX_DEPTH       = 8
 GROW_SPEED      = 30
 MIN_BRANCH_LEN  = 8
 
-# Resource decay per second (base rates, modified by environment)
+# Resource decay per second (base — modified by season)
 WATER_DECAY_BASE    = 0.006
 NUTRIENT_DECAY_BASE = 0.003
 
@@ -57,7 +55,6 @@ def fill_rect(cx, cy, w, h, color):
 
 #  LEAF DATA
 
-
 class LeafData:
     __slots__ = ('ox','oy','size','phase','base_r','base_g','base_b','autumn_phase')
 
@@ -82,7 +79,7 @@ class WoundSite:
         self.x         = x
         self.y         = y
         self.max_thick = thickness
-        self.heal_t    = 0.0   # 0 = fresh, 1 = fully healed 
+        self.heal_t    = 0.0   # 0 = fresh, 1 = fully healed (removed)
         self.alive     = True
 
     def update(self, dt: float, growth_rate: float):
@@ -108,7 +105,6 @@ class WoundSite:
 
 
 #  BRANCH
-
 
 class Branch:
     """One segment of the recursive bonsai structure."""
@@ -195,7 +191,6 @@ class Branch:
     @property
     def alpha(self):
         return max(0, int(255 * (self.prune_t if self.is_pruning else 1.0)))
-
 
 #  PRECIPITATION PARTICLES
 
@@ -331,7 +326,7 @@ class Environment:
         self.cloud_y = [SCREEN_H - 95 + random.uniform(-22,22) for _ in range(5)]
         self.cloud_type = [random.choice(['cumulus','stratus']) for _ in range(5)]
 
-    #  Derived 
+    #  Derived
 
     @property
     def season(self):
@@ -388,7 +383,7 @@ class Environment:
 
     def growth_rate(self):
         """Realistic composite growth rate."""
-        # Photosynthesis limited by sunlight, CO2 , leaf health
+        # Photosynthesis limited by sunlight, CO2 (constant), leaf health
         photo = clamp(self.sunlight, 0, 1) * 0.50
         # Water uptake limited by soil moisture and temperature
         water_up = self.water * 0.30 * clamp(self.soil_temp/18.0, 0.05, 1.2)
@@ -420,7 +415,7 @@ class Environment:
     def fertilize(self, amt=0.22):
         self.nutrients = min(1.0, self.nutrients + amt)
 
-# Main  Update
+    #  Main update 
 
     def update(self, dt, branches):
         self._update_time(dt)
@@ -542,7 +537,7 @@ class Environment:
         self.wind = min(3.0, self.wind + self.wind_gust*dt)
 
     def _update_precipitation(self, dt):
-        #  Rain
+        # Rain 
         if self.weather in ('rainy','stormy'):
             rate = 0.014 if self.weather=='stormy' else 0.032
             self._rain_acc += dt
@@ -559,7 +554,7 @@ class Environment:
         if len(self.rain) > 800:
             self.rain = self.rain[-800:]
 
-        # Snow (winter + cold) 
+        #  Snow (winter + cold)
         if self.season=='winter' and self.air_temp < 2.0:
             self._snow_acc += dt
             rate = 0.06
@@ -573,7 +568,7 @@ class Environment:
         if len(self.snow) > 350:
             self.snow = self.snow[-350:]
 
-        # Fog
+        # ── Fog ──
         if self.weather=='foggy':
             self._fog_acc += dt
             if self._fog_acc > 0.8:
@@ -593,7 +588,6 @@ class Environment:
 
 
 #  TREE
-
 
 class Tree:
     """
@@ -771,6 +765,7 @@ class Tree:
         return None
 
 
+
 #  BONSAI APP
 
 
@@ -892,7 +887,7 @@ class BonsaiApp(arcade.Window):
                 if br > 20:
                     arcade.draw_circle_filled(sx2, sy2, 1.2, (br,br,br))
 
-    #  Clouds 
+    # Clouds 
 
     def _draw_clouds(self):
         if self.env.weather not in ('cloudy','rainy','stormy','foggy'):
@@ -956,15 +951,16 @@ class BonsaiApp(arcade.Window):
         bx, by = self.tree.bx, self.tree.by
         amb = self.env.ambient()
 
-        # Pot geometry 
-      
+        #  Pot geometry 
+        # A tokoname pot is wide/shallow with slightly outward-flaring walls.
+        # We approximate the curved profile with a 6-point polygon per face.
         POT_W   = 220    # rim half-width
-        POT_WB  = 195  # base half-width  (walls taper inward)
-        POT_H   = 100    # total wall height
-        RIM_H   = 8   # thick flat rim at top
-        BASE_H  = 7    # base band
-        FOOT_H  = 6    # foot ring that lifts pot off surface
-        FOOT_W  = 120   # foot ring half-width
+        POT_WB  = 195    # base half-width  (walls taper inward)
+        POT_H   = 65     # total wall height
+        RIM_H   = 12     # thick flat rim at top
+        BASE_H  = 9      # base band
+        FOOT_H  = 8      # foot ring that lifts pot off surface
+        FOOT_W  = 148    # foot ring half-width
 
         # by IS the soil/trunk base — pot hangs below it.
         soil_y  = by                 # trunk grows from here
@@ -986,10 +982,10 @@ class BonsaiApp(arcade.Window):
         arcade.draw_ellipse_filled(bx, foot_y - 4,
                                    (FOOT_W+30)*2, 14, (0, 0, 0, 55))
 
-        #  Feet 
+        #  Feet (two small rectangular feet, typical of tokoname) 
         for fx_off in (-FOOT_W*0.42, FOOT_W*0.42):
             fx = bx + fx_off
-            # Foot side face
+            # Foot side face (darker, facing forward-down)
             arcade.draw_polygon_filled([
                 (fx - 14, base_y),
                 (fx + 14, base_y),
@@ -999,7 +995,9 @@ class BonsaiApp(arcade.Window):
             # Foot top face (catches a bit more light)
             arcade.draw_lbwh_rectangle_filled(fx-13, base_y-1, 26, 3, clay_mid)
 
-        
+        #  Pot body — front face (slightly curved via 8-point polygon) 
+        # The wall curves: top edge wider than base, with a subtle S-curve.
+        # We simulate the curve by adding intermediate points offset outward.
         curve_out = 6   # maximum outward bow of the wall mid-section
         mid_y   = (body_y + base_y) * 0.5
         mid_w   = POT_WB + (POT_W - POT_WB) * 0.5 + curve_out   # widest mid-point
@@ -1137,7 +1135,7 @@ class BonsaiApp(arcade.Window):
             arcade.draw_circle_filled(px3, py3, pr3,
                                       (int(165*amb), int(118*amb), int(72*amb), 180))
 
-        # Moss patches 
+        #  Moss patches 
         for mx, my, mr in self.tree._moss:
             if self.env.season == 'winter':
                 mc = (int(48*amb), int(68*amb), int(48*amb))
@@ -1224,6 +1222,7 @@ class BonsaiApp(arcade.Window):
                     g  = int(lf.base_g * amb)
                     bl = int(lf.base_b * amb)
                 elif s in ('autumn','winter') or h <= 0.60:
+                    # Autumn blend: green → orange/red → brown
                     ar = clamp(autumn_r + lf.autumn_phase*0.15, 0, 1)
                     if ar < 0.5:
                         # Green → yellow-orange
@@ -1254,7 +1253,7 @@ class BonsaiApp(arcade.Window):
     def _day_in_season_ratio(self):
         return clamp(self.env._day_in_season / (YEAR_DAYS//4), 0, 1)
 
-    #   FX 
+    #  FX 
 
     def _draw_prune_fx(self):
         for f in self._fx:
@@ -1370,8 +1369,7 @@ class BonsaiApp(arcade.Window):
                          SCREEN_W//2, SCREEN_H//2-22,
                          (180,180,180), 13, anchor_x='center')
 
-    #  Input 
-
+# Input handling and notifications
     def _flash(self, msg: str, colour=(255,220,80)):
         """Show a temporary notification centre-screen."""
         self._msgs.append({'text': msg, 'colour': colour, 't': 2.2})
@@ -1453,11 +1451,13 @@ class BonsaiApp(arcade.Window):
             self.close()
 
 
+
 #  ENTRY POINT
+
 
 def main():
     BonsaiApp()
     arcade.run()
 
 if __name__ == '__main__':
-    main()
+    main() 
