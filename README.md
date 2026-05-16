@@ -1,6 +1,6 @@
 
 
-#  Digital Bonsai — Enhanced Simulation
+#  Digital Bonsai — Simulation
 
 A highly detailed **procedural bonsai tree ecosystem simulator** built with Python and Arcade.
 This project simulates not just a growing tree, but an entire **living environment system** with realistic weather, seasons, plant physiology, and interactive pruning mechanics.
