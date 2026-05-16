@@ -144,12 +144,14 @@ pip install arcade
 
 ```
 digital-bonsai/
-│
-├── bonsai.py        # Full simulation engine
-├── README.md
+    
+├── README.md # Documentation
+├── Screenshot 2026-05-16 112141.png
+├──Screenshot 2026-05-16 112158.png
+├──Screenshot 2026-05-16 112214.png
+├── bonsai.py  #full simulation engine
 ├── requirements.txt
-├── 
-      # Documentation
+      
 ```
 
 ---
@@ -167,6 +169,9 @@ digital-bonsai/
 ---
 
 ##  Preview
+<img width="1486" height="919" alt="Screenshot 2026-05-16 112141" src="https://github.com/user-attachments/assets/7d8836f7-28b6-4e7b-9fda-24b52be91ec1" />
+<img width="1338" height="911" alt="Screenshot 2026-05-16 112158" src="https://github.com/user-attachments/assets/331a132a-62c9-4243-b77b-da4cdcceed30" />
+<img width="1481" height="920" alt="Screenshot 2026-05-16 112214" src="https://github.com/user-attachments/assets/c5d78cdd-2349-46ba-b803-238c35c5a5db" />
 
 
 
